@@ -1,0 +1,75 @@
+﻿<Window x:Class="Ermakova.Statistika"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Ermakova"
+        mc:Ignorable="d" MinHeight="248" MinWidth="844" Width="812" Height="165">
+    <Grid>
+        <GroupBox Header="Посещение" Margin="10,0,0,0" BorderBrush="#FF252B5B" Foreground="#FF252B5B" Height="88" VerticalAlignment="Top" HorizontalAlignment="Left" Width="533"/>
+
+        <ListBox x:Name="lst" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="lst_SelectionChanged" Background="#FF252B5B" Foreground="White" Margin="0,141,0,0"/>
+        <DatePicker x:Name="dateV" HorizontalAlignment="Left" Margin="95,23,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="timeV" HorizontalAlignment="Left" Margin="95,52,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" BorderBrush="#FF252B5B"/>
+        <ComboBox x:Name="cmb_id_tick" HorizontalAlignment="Left" Margin="304,23,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="cmb_in_out" HorizontalAlignment="Left" Margin="304,50,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBlock HorizontalAlignment="Left" Margin="26,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64"><Run Language="ru-ru" Text="время"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="26,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.281,0.441" Width="64" Text="дата"/>
+        <TextBlock HorizontalAlignment="Left" Margin="235,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64"><Run Language="ru-ru" Text="код карты"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="235,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="ru-ru" Text="выход/вход"/></TextBlock>
+        <Button x:Name="save" Content="Сохранить" 
+            Background="#FF308A3D"
+            BorderBrush="#FFCACACA"
+            Foreground="White" 
+            Margin="441,37,0,0" 
+            VerticalAlignment="Top" Click="save_Click" Height="20" HorizontalAlignment="Left" Width="84" RenderTransformOrigin="-0.517,-1.298"
+                />
+        <Button x:Name="clear" Content="Добавить" 
+            Background="#FF252B5B"
+            BorderBrush="#FFCACACA"
+            Foreground="White" 
+            Margin="441,15,0,0" 
+            VerticalAlignment="Top" 
+            Height="20" HorizontalAlignment="Left" Width="84" Click="clear_Click"
+                />
+        <Button x:Name="delete" Content="Удалить" 
+            Background="#FFA43838"
+            BorderBrush="#FFCACACA"
+            Foreground="White" 
+            Margin="441,59,0,0" 
+            VerticalAlignment="Top" Height="20" HorizontalAlignment="Left" Width="84" Click="delete_Click"
+                />
+        <Button x:Name="back" Content="назад" 
+            Background="White"
+            BorderBrush="#FF252B5B"
+            Foreground="#FF252B5B" Margin="0,0,10,10" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="60" Click="back_Click" Height="22" VerticalAlignment="Bottom"/>
+        <Grid HorizontalAlignment="Left" Height="59" Margin="548,8,0,0" VerticalAlignment="Top" Width="272" Background="#FFCBD1FF">
+            <TextBlock HorizontalAlignment="Left" Margin="10,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.281,0.441" Width="76"><Run Language="ru-ru" Text="Людей в зале"/></TextBlock>
+            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.281,0.441" Width="76" Foreground="#FF252B5B" Margin="0,10,0,0"><Run Language="ru-ru" Text="Статистика:"/></TextBlock>
+            <TextBox x:Name="txtKolvo" IsEnabled="False" HorizontalAlignment="Left" Margin="136,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
+        </Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="10,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.281,0.441" Width="116"><Run Language="ru-ru" Text="По типу абонемента"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="135,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.299,1.109" Width="116"><Run Language="ru-ru" Text="Временной период"/></TextBlock>
+        <ComboBox x:Name="cmbTypeTick" HorizontalAlignment="Left" Margin="10,114,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.506,0.169"/>
+        <ComboBox x:Name="cmbTime" HorizontalAlignment="Left" Margin="135,114,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="kolvoVisits" HorizontalAlignment="Left" Margin="260,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="22" TextAlignment="Right"/>
+        <TextBlock HorizontalAlignment="Left" Margin="260,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.299,1.109" Width="116"><Run Text="Число "/><Run Language="ru-ru" Text="посещений"/></TextBlock>
+        <Button x:Name="statistic" Content="Подсчитать" HorizontalAlignment="Left" Margin="510,114,0,0" VerticalAlignment="Top" Height="22" Width="98" Click="statistic_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="385,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.299,1.109" Width="116"><Run Language="ru-ru" Text="Всего записей"/></TextBlock>
+        <TextBox x:Name="kolvoVisitsAll" HorizontalAlignment="Left" Margin="385,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="22" TextAlignment="Right"/>
+        <Button x:Name="sbros" Content="Сброс" HorizontalAlignment="Left" Margin="613,114,0,0" VerticalAlignment="Top" Height="22" Width="49"  RenderTransformOrigin="0.5,0.5" Click="sbros_Click">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.595"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button x:Name="export_btn" Content="Экспорт" HorizontalAlignment="Left" Margin="666,114,0,0" VerticalAlignment="Top" Height="22" Width="74"  RenderTransformOrigin="0.5,0.5" Click="export_btn_Click">
+        </Button>
+
+    </Grid>
+</Window>

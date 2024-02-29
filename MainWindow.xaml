@@ -1,0 +1,62 @@
+﻿<Window x:Class="Ermakova.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Ermakova"
+        mc:Ignorable="d" Height="343" Width="466" ResizeMode="NoResize">
+    <Grid>
+        <Label
+Margin="69,10,0,0"
+HorizontalAlignment="Left"
+VerticalAlignment="Top"
+Content="Введите данные"
+RenderTransformOrigin="0.506,1.35" />
+        <Label
+Width="49"
+Margin="10,37,0,0"
+HorizontalAlignment="Left"
+VerticalAlignment="Top"
+Content="Логин:" />
+        <Label
+Margin="10,63,0,0"
+HorizontalAlignment="Left"
+VerticalAlignment="Top"
+Content="Пароль:" />
+        <TextBox
+x:Name="login_box"
+Margin="69,41,10,0"
+VerticalAlignment="Top"
+Text=""
+TextWrapping="Wrap" />
+        <PasswordBox
+x:Name="password_box"
+Margin="69,67,10,0"
+VerticalAlignment="Top" />
+        <StackPanel Margin="10,0,10,37" Orientation="Vertical" VerticalAlignment="Bottom">
+
+
+            <Button x:Name="Button_enter"
+                Height="30"
+                Background="#FF252B5B"
+                BorderBrush="White"
+                Foreground="White" 
+                Content="Войти в базу" Click="Button_enter_Click"
+Width="408"
+/>
+
+
+            <Button x:Name="Button_gost"
+                Background="White"
+                BorderBrush="White"
+                Foreground="#FF252B5B" 
+        
+                Content="Войти как гость"
+                Height="30" Click="Button_gost_Click"
+        Width="408"
+        />
+        </StackPanel>
+
+
+    </Grid>
+</Window>

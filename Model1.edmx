@@ -1,0 +1,404 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Model" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="last_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="fathers_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="adres" Type="nvarchar(max)" />
+          <Property Name="recomendation" Type="nvarchar(max)" />
+          <Property Name="phone" Type="nvarchar" MaxLength="11" />
+          <Property Name="age" Type="int" />
+          <Property Name="pol" Type="nvarchar" MaxLength="3" />
+        </EntityType>
+        <EntityType Name="Season_tickets">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_client" Type="int" />
+          <Property Name="id_ticket_type" Type="int" />
+          <Property Name="date_start" Type="date" />
+          <Property Name="date_end" Type="date" />
+          <Property Name="freeze_status" Type="char" MaxLength="1" />
+          <Property Name="id_trainer" Type="int" />
+          <Property Name="inOut" Type="nvarchar" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="Trainers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="last_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="fathers_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="adres" Type="nvarchar(max)" />
+          <Property Name="work_experience" Type="float" />
+          <Property Name="phone" Type="nvarchar" MaxLength="11" />
+        </EntityType>
+        <EntityType Name="Types_season_tickets">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type" Type="nvarchar(max)" />
+          <Property Name="age_group" Type="nvarchar(max)" />
+          <Property Name="time_type" Type="nvarchar(max)" />
+          <Property Name="price" Type="money" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="login" Type="nchar" MaxLength="11" />
+          <Property Name="password" Type="nchar" MaxLength="11" />
+          <Property Name="role" Type="nvarchar" MaxLength="35" />
+        </EntityType>
+        <EntityType Name="Visits">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_ticket" Type="int" />
+          <Property Name="inOutType" Type="nvarchar" MaxLength="5" />
+          <Property Name="time" Type="time" Precision="7" />
+          <Property Name="date" Type="date" />
+        </EntityType>
+        <Association Name="FK__Season_ti__id_cl__403A8C7D">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+          <End Role="Season_tickets" Type="Self.Season_tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Season_tickets">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Season_ti__id_ti__412EB0B6">
+          <End Role="Types_season_tickets" Type="Self.Types_season_tickets" Multiplicity="0..1" />
+          <End Role="Season_tickets" Type="Self.Season_tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Types_season_tickets">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Season_tickets">
+              <PropertyRef Name="id_ticket_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Season_ti__id_tr__47DBAE45">
+          <End Role="Trainers" Type="Self.Trainers" Multiplicity="0..1" />
+          <End Role="Season_tickets" Type="Self.Season_tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trainers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Season_tickets">
+              <PropertyRef Name="id_trainer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Visits__id_ticke__5CD6CB2B">
+          <End Role="Season_tickets" Type="Self.Season_tickets" Multiplicity="0..1" />
+          <End Role="Visits" Type="Self.Visits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Season_tickets">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Visits">
+              <PropertyRef Name="id_ticket" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ModelContainer">
+          <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Season_tickets" EntityType="Self.Season_tickets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Trainers" EntityType="Self.Trainers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Types_season_tickets" EntityType="Self.Types_season_tickets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Visits" EntityType="Self.Visits" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Season_ti__id_cl__403A8C7D" Association="Self.FK__Season_ti__id_cl__403A8C7D">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Season_tickets" EntitySet="Season_tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Season_ti__id_ti__412EB0B6" Association="Self.FK__Season_ti__id_ti__412EB0B6">
+            <End Role="Types_season_tickets" EntitySet="Types_season_tickets" />
+            <End Role="Season_tickets" EntitySet="Season_tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Season_ti__id_tr__47DBAE45" Association="Self.FK__Season_ti__id_tr__47DBAE45">
+            <End Role="Trainers" EntitySet="Trainers" />
+            <End Role="Season_tickets" EntitySet="Season_tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Visits__id_ticke__5CD6CB2B" Association="Self.FK__Visits__id_ticke__5CD6CB2B">
+            <End Role="Season_tickets" EntitySet="Season_tickets" />
+            <End Role="Visits" EntitySet="Visits" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fathers_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="adres" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="recomendation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="age" Type="Int32" />
+          <Property Name="pol" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Season_tickets" Relationship="Self.FK__Season_ti__id_cl__403A8C7D" FromRole="Clients" ToRole="Season_tickets" />
+        </EntityType>
+        <EntityType Name="Season_tickets">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_client" Type="Int32" />
+          <Property Name="id_ticket_type" Type="Int32" />
+          <Property Name="date_start" Type="DateTime" Precision="0" />
+          <Property Name="date_end" Type="DateTime" Precision="0" />
+          <Property Name="freeze_status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="id_trainer" Type="Int32" />
+          <Property Name="inOut" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Clients" Relationship="Self.FK__Season_ti__id_cl__403A8C7D" FromRole="Season_tickets" ToRole="Clients" />
+          <NavigationProperty Name="Types_season_tickets" Relationship="Self.FK__Season_ti__id_ti__412EB0B6" FromRole="Season_tickets" ToRole="Types_season_tickets" />
+          <NavigationProperty Name="Trainers" Relationship="Self.FK__Season_ti__id_tr__47DBAE45" FromRole="Season_tickets" ToRole="Trainers" />
+          <NavigationProperty Name="Visits" Relationship="Self.FK__Visits__id_ticke__5CD6CB2B" FromRole="Season_tickets" ToRole="Visits" />
+        </EntityType>
+        <EntityType Name="Trainers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fathers_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="adres" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="work_experience" Type="Double" />
+          <Property Name="phone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Season_tickets" Relationship="Self.FK__Season_ti__id_tr__47DBAE45" FromRole="Trainers" ToRole="Season_tickets" />
+        </EntityType>
+        <EntityType Name="Types_season_tickets">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="age_group" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="time_type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Season_tickets" Relationship="Self.FK__Season_ti__id_ti__412EB0B6" FromRole="Types_season_tickets" ToRole="Season_tickets" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="login" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="role" Type="String" MaxLength="35" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Visits">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_ticket" Type="Int32" />
+          <Property Name="inOutType" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="time" Type="Time" Precision="7" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Season_tickets" Relationship="Self.FK__Visits__id_ticke__5CD6CB2B" FromRole="Visits" ToRole="Season_tickets" />
+        </EntityType>
+        <Association Name="FK__Season_ti__id_cl__403A8C7D">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+          <End Role="Season_tickets" Type="Self.Season_tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Season_tickets">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Season_ti__id_ti__412EB0B6">
+          <End Role="Types_season_tickets" Type="Self.Types_season_tickets" Multiplicity="0..1" />
+          <End Role="Season_tickets" Type="Self.Season_tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Types_season_tickets">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Season_tickets">
+              <PropertyRef Name="id_ticket_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Season_ti__id_tr__47DBAE45">
+          <End Role="Trainers" Type="Self.Trainers" Multiplicity="0..1" />
+          <End Role="Season_tickets" Type="Self.Season_tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trainers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Season_tickets">
+              <PropertyRef Name="id_trainer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Visits__id_ticke__5CD6CB2B">
+          <End Role="Season_tickets" Type="Self.Season_tickets" Multiplicity="0..1" />
+          <End Role="Visits" Type="Self.Visits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Season_tickets">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Visits">
+              <PropertyRef Name="id_ticket" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clients" EntityType="Self.Clients" />
+          <EntitySet Name="Season_tickets" EntityType="Self.Season_tickets" />
+          <EntitySet Name="Trainers" EntityType="Self.Trainers" />
+          <EntitySet Name="Types_season_tickets" EntityType="Self.Types_season_tickets" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="Visits" EntityType="Self.Visits" />
+          <AssociationSet Name="FK__Season_ti__id_cl__403A8C7D" Association="Self.FK__Season_ti__id_cl__403A8C7D">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Season_tickets" EntitySet="Season_tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Season_ti__id_ti__412EB0B6" Association="Self.FK__Season_ti__id_ti__412EB0B6">
+            <End Role="Types_season_tickets" EntitySet="Types_season_tickets" />
+            <End Role="Season_tickets" EntitySet="Season_tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Season_ti__id_tr__47DBAE45" Association="Self.FK__Season_ti__id_tr__47DBAE45">
+            <End Role="Trainers" EntitySet="Trainers" />
+            <End Role="Season_tickets" EntitySet="Season_tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Visits__id_ticke__5CD6CB2B" Association="Self.FK__Visits__id_ticke__5CD6CB2B">
+            <End Role="Season_tickets" EntitySet="Season_tickets" />
+            <End Role="Visits" EntitySet="Visits" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ModelContainer" CdmEntityContainer="Entities1">
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="Model.Clients">
+              <MappingFragment StoreEntitySet="Clients">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="fathers_name" ColumnName="fathers_name" />
+                <ScalarProperty Name="adres" ColumnName="adres" />
+                <ScalarProperty Name="recomendation" ColumnName="recomendation" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="pol" ColumnName="pol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Season_tickets">
+            <EntityTypeMapping TypeName="Model.Season_tickets">
+              <MappingFragment StoreEntitySet="Season_tickets">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="id_client" ColumnName="id_client" />
+                <ScalarProperty Name="id_ticket_type" ColumnName="id_ticket_type" />
+                <ScalarProperty Name="date_start" ColumnName="date_start" />
+                <ScalarProperty Name="date_end" ColumnName="date_end" />
+                <ScalarProperty Name="freeze_status" ColumnName="freeze_status" />
+                <ScalarProperty Name="id_trainer" ColumnName="id_trainer" />
+                <ScalarProperty Name="inOut" ColumnName="inOut" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trainers">
+            <EntityTypeMapping TypeName="Model.Trainers">
+              <MappingFragment StoreEntitySet="Trainers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="fathers_name" ColumnName="fathers_name" />
+                <ScalarProperty Name="adres" ColumnName="adres" />
+                <ScalarProperty Name="work_experience" ColumnName="work_experience" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Types_season_tickets">
+            <EntityTypeMapping TypeName="Model.Types_season_tickets">
+              <MappingFragment StoreEntitySet="Types_season_tickets">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="age_group" ColumnName="age_group" />
+                <ScalarProperty Name="time_type" ColumnName="time_type" />
+                <ScalarProperty Name="price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Model.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="role" ColumnName="role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Visits">
+            <EntityTypeMapping TypeName="Model.Visits">
+              <MappingFragment StoreEntitySet="Visits">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="id_ticket" ColumnName="id_ticket" />
+                <ScalarProperty Name="inOutType" ColumnName="inOutType" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
